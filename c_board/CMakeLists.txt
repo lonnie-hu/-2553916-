@@ -45,16 +45,18 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     applications/buzzer_task.cpp
-    ../sp_middleware/io/buzzer/buzzer.cpp
+    sp_middleware/io/buzzer/buzzer.cpp
     applications/led_task.cpp
-    ../sp_middleware/io/led/led.cpp
+    sp_middleware/io/led/led.cpp
+    applications/imu_task.cpp
+    sp_middleware/io/bmi088/bmi088.cpp
 
     # Add user sources here
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    ../sp_middleware
+    sp_middleware
     # Add user defined include paths
 )
 
@@ -62,6 +64,8 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
 )
+
+target_link_options(${CMAKE_PROJECT_NAME} PRIVATE -u _printf_float)
 
 # Remove wrong libob.a library dependency when using cpp files
 list(REMOVE_ITEM CMAKE_C_IMPLICIT_LINK_LIBRARIES ob)
