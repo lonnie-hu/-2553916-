@@ -46,6 +46,8 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     applications/buzzer_task.cpp
     ../sp_middleware/io/buzzer/buzzer.cpp
+    applications/led_task.cpp
+    ../sp_middleware/io/led/led.cpp
 
     # Add user sources here
 )
