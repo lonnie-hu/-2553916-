@@ -18,7 +18,7 @@ constexpr float kBoardAxes[3][3] = {
 }  // namespace
 
 sp::BMI088 bmi088(
-  &hspi1, CS1_ACCEL_GPIO_Port, CS1_ACCEL_Pin, CS1_GYRO_GPIO_Port, CS1_GYRO_Pin, kBoardAxes);
+  &hspi1, CS1_ACC_GPIO_Port, CS1_ACC_Pin, CS1_GYRO_GPIO_Port, CS1_GYRO_Pin, kBoardAxes);
 extern "C" void imu_task(void const * argument)
 {
   (void)argument;

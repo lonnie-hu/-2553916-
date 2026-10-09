@@ -1,7 +1,7 @@
 #include "cmsis_os.h"
 #include "io/buzzer/buzzer.hpp"
 sp::Buzzer buzzer(&htim4, TIM_CHANNEL_3, 84e6f);
-extern "C" void StartTask02(void const * argument)
+extern "C" void buzzer_task(void const * argument)
 {
   (void)argument;
 
