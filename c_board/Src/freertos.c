@@ -45,6 +45,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+osThreadId ImuTaskHandle;
+osThreadId MotorTaskHandle;
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
@@ -55,6 +57,8 @@ osThreadId RemoteTsakHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+extern void imu_task(void const * argument);
+extern void motor_task(void const * argument);
 
 /* USER CODE END FunctionPrototypes */
 
@@ -131,7 +135,11 @@ void MX_FREERTOS_Init(void) {
   RemoteTsakHandle = osThreadCreate(osThread(RemoteTsak), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+  osThreadDef(ImuTask, imu_task, osPriorityHigh, 0, 512);
+  ImuTaskHandle = osThreadCreate(osThread(ImuTask), NULL);
+
+  osThreadDef(MotorTask, motor_task, osPriorityRealtime, 0, 768);
+  MotorTaskHandle = osThreadCreate(osThread(MotorTask), NULL);
   /* USER CODE END RTOS_THREADS */
 
 }
