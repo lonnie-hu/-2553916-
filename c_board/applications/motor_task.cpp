@@ -53,14 +53,14 @@ constexpr float kMotorADirection = 1.0f;
 constexpr float kMotorBDirection = 1.0f;
 // 当前装置实测：速度 Ki=0.05 时，C 板联动能稳定运行。
 // 保留位置 P + 速度 PI 双环；手动识别的灵敏度在后面的联动参数中调整。
-constexpr float kPositionKp = 2.0f;                 // 位置外环 Kp：角度误差乘它，得到目标速度
-constexpr float kSpeedKp = 0.04f;                   // 速度内环 Kp：速度误差乘它，得到 P 项力矩
-constexpr float kSpeedKi = 0.05f;                   // 速度内环积分系数，保留当前实测值
-constexpr float kMaxSpeed = 1.5f;                   // 起调目标速度最多 +/-1.5 rad/s
-constexpr float kMaxTorque = 0.15f;                 // 起调总输出最多 +/-0.15 N*m
-constexpr float kMaxIntegral = 0.05f;               // 开启积分后的 I 项力矩限幅
-constexpr float kVelocityFilterTime = 0.02f;        // 目标速度前馈滤波时间，单位秒
-constexpr bool kEnableVelocityFeedforward = false;  // 暂关前馈，先排除 yaw 差分的影响
+constexpr float kPositionKp = 2.0f;                // 位置外环 Kp：角度误差乘它，得到目标速度
+constexpr float kSpeedKp = 0.04f;                  // 速度内环 Kp：速度误差乘它，得到 P 项力矩
+constexpr float kSpeedKi = 0.05f;                  // 速度内环积分系数，保留当前实测值
+constexpr float kMaxSpeed = 4.5f;                  // 支持 1:3 联动的目标速度上限
+constexpr float kMaxTorque = 0.15f;                // 起调总输出最多 +/-0.15 N*m
+constexpr float kMaxIntegral = 0.05f;              // 开启积分后的 I 项力矩限幅
+constexpr float kVelocityFilterTime = 0.02f;       // 目标速度前馈滤波时间，单位秒
+constexpr bool kEnableVelocityFeedforward = true;  // 目标运动时提前补偿跟随速度
 constexpr motor_control::Parameters kPIDParameters{
   kPositionKp, kSpeedKp, kSpeedKi, kMaxSpeed, kMaxTorque, kMaxIntegral, kVelocityFilterTime};
 

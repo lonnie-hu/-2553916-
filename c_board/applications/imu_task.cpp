@@ -23,6 +23,8 @@ sp::BMI088 bmi088(
 sp::Mahony mahony(0.002f);
 sp::AngleUnwrapper yaw_unwrapper;
 volatile float imu_yaw_unwrapped = 0.0f;
+volatile float imu_pitch = 0.0f;
+volatile float imu_roll = 0.0f;
 volatile float imu_yaw_speed = 0.0f;
 volatile uint32_t imu_last_update_ms = 0;
 volatile bool imu_ready = false;
@@ -37,9 +39,13 @@ extern "C" void imu_task(void const * argument)
     bmi088.update();
     mahony.update(bmi088.acc, bmi088.gyro);
     const float yaw = yaw_unwrapper.update(mahony.yaw);
-    const bool valid = std::isfinite(yaw) && std::isfinite(mahony.vyaw);
+    const bool valid =
+      std::isfinite(mahony.roll) && std::isfinite(mahony.pitch) && std::isfinite(yaw) &&
+      std::isfinite(mahony.vyaw);
     const uint32_t irq_state = __get_PRIMASK();
     __disable_irq();
+    imu_roll = mahony.roll;
+    imu_pitch = mahony.pitch;
     imu_yaw_unwrapped = yaw;
     imu_yaw_speed = mahony.vyaw;
     imu_last_update_ms = osKernelSysTick();
