@@ -50,7 +50,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     sp_middleware/io/led/led.cpp
     applications/imu_task.cpp
     sp_middleware/io/bmi088/bmi088.cpp
-
+    applications/remote_task.cpp
+    sp_middleware/io/dbus/dbus.cpp
     # Add user sources here
 )
 
